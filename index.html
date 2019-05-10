@@ -1,49 +1,97 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/monokai.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link')
+		link.rel = 'stylesheet'
+		link.type = 'text/css'
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css'
+		document.getElementsByTagName('head')[0].appendChild(link)
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- <section data-markdown="README.md">
+			</section> -->
+			<section>
+				<section data-markdown>
+					### 子页面 1
+				</section>
+				<section data-markdown>
+					### 子页面 2
+				</section>
+			</section>
+			<section>
+				<h2>Some Slide</h2>
+
+				<aside class="notes">
+					Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you
+					open the speaker notes window (hit »S« on your keyboard).
+				</aside>
+			</section>
 		</div>
+	</div>
 
-		<script src="js/reveal.js"></script>
+	<script src="js/reveal.js"></script>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
-			});
-		</script>
-	</body>
+	<script>
+		function getUrlParam(name) {
+			name = name.replace(/[\[\]]/g, '\\$&')
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+				results = regex.exec(window.location.href)
+			if (!results) return null
+			if (!results[2]) return ''
+			return decodeURIComponent(results[2].replace(/\+/g, ' '))
+		}
+
+		var role = getUrlParam('role')
+
+		function isMaster() {
+			// if (window)
+			return role === 'master'
+		}
+
+		Reveal.initialize({
+			controls: isMaster(),
+
+			multiplex: {
+				// Example values. To generate your own, see the socket.io server instructions.
+				secret: '13652805320794272084', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+				id: '1ea875674b17ca76', // Obtained from socket.io server
+				url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
+			},
+
+			dependencies: [
+				// { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js', async: true },
+				{ src: 'lib/js/socket.io.min.js', async: true},
+				{ src: 'plugin/multiplex/master.js', async: true, condition: isMaster},
+				{ src: 'plugin/multiplex/client.js', async: true, condition: function() { return !isMaster() }},
+				// and if you want speaker notes
+				// { src: 'plugin/notes-server/client.js', async: true },
+
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true }
+			]
+		})
+	</script>
+</body>
+
 </html>

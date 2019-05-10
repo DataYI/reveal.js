@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+
+    <title>my demo</title>
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/monokai.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.type = 'text/css'
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css'
+        document.getElementsByTagName('head')[0].appendChild(link)
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-markdown>
+
+                <textarea data-template>
+                        <h1>hello</h1>
+                    # 一级标题
+                    ```py
+                    import pandas as pd
+                    def add(a, b):
+                        return a + b
+                    ```
+                </textarea>
+            </section>
+            <section>
+                <section data-markdown>
+                    ### 子页面 1
+
+                    姓名 | 年级
+                    --- | ---
+                    贺正懋| 八年级
+                    王睿鑫| 八年级
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+                        - Item 1 <!-- .element: class="fragment" data-fragment-index="1" -->
+                        - Item 2 <!-- .element: class="fragment" data-fragment-index="2" -->
+                    </script>
+                </section>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                        Markdown content
+                </script>
+            </section>
+            <section data-background-iframe="file:///E:/front/reveal.js/hello.html" data-background-interactive>
+                <h2>Iframe</h2>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/reveal.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'hidden',
+            slideNumber: true,
+            embedded: true,
+            center: true,
+            // parallaxBackgroundImage: 'https://socialbeta.oss-cn-hangzhou.aliyuncs.com/wp/2015/07/%E5%93%86%E5%95%A6A-%E6%A2%A6-%E6%B7%98%E5%AE%9D%E4%BB%A3%E8%A8%80%E4%BA%BA-SocialBeta.jpg',
+            // parallaxBackgroundSize: '3600px 2000px',
+            dependencies: [
+                { src: 'plugin/markdown/marked.js' },
+                { src: 'plugin/markdown/markdown.js' },
+                { src: 'plugin/notes/notes.js', async: true },
+                { src: 'plugin/highlight/highlight.js', async: true }
+            ]
+        })
+    </script>
+</body>
+
+</html>
